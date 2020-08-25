@@ -13,4 +13,20 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('dashboard');
 	}
+//dashboard
+	public function dashboard()
+	{
+		$this->load->view('dashboard');
+	}
+//members view
+	public function member()
+	{
+		$this->load->view('member');
+	}
+
+//card view
+	public function card()
+	{
+		$this->load->view('card');
+	}
 }
