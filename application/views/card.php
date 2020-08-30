@@ -34,81 +34,17 @@
                 <p class="card-category">Create New Card</p>
             </div>
             <div class="card-body">
-                <form>
-                <div class="row">
-                    <div class="col-md-5">
-                    <div class="form-group">
-                        <label class="bmd-label-floating">Company (disabled)</label>
-                        <input type="text" class="form-control" disabled>
-                    </div>
-                    </div>
-                    <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="bmd-label-floating">Username</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    </div>
-                    <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="bmd-label-floating">Email address</label>
-                        <input type="email" class="form-control">
-                    </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="bmd-label-floating">Fist Name</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    </div>
-                    <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="bmd-label-floating">Last Name</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    </div>
-                </div>
+                <form method="post" action="<?= base_url('create-card')?>">
                 <div class="row">
                     <div class="col-md-12">
                     <div class="form-group">
-                        <label class="bmd-label-floating">Adress</label>
-                        <input type="text" class="form-control">
+                        <label class="bmd-label-floating">Card No.</label>
+                        <input type="text" name="cardno" id="cardno" class="form-control">
                     </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="bmd-label-floating">City</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    </div>
-                    <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="bmd-label-floating">Country</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    </div>
-                    <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="bmd-label-floating">Postal Code</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                    <div class="form-group">
-                        <label>About Me</label>
-                        <div class="form-group">
-                        <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
-                        <textarea class="form-control" rows="5"></textarea>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-success pull-right">Update Profile</button>
+                <button type="submit" class="btn btn-success pull-right"><span id="btnname">Create</span>  Card</button>
+                <input type="hidden" name="id" id="fid">
                 <div class="clearfix"></div>
                 </form>
             </div>
@@ -120,26 +56,26 @@
 <div class="content" id="tbl">
     <div class="container-fluid">
         <div class="row">
+          <?php for($i = 0;$i < count($card);$i++): ?>
             <div class="col-md-4">
               <div class="card card-chart">
                 <div class="card-header card-header-success">
-                    <h4 class="card-title">Daily Sales</h4>
                     <p class="card-category">
-                        <span class="text-warning"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.
+                        <span style="color:#01070c"><?= $card[$i]['cardno']?></span>
                     </p>
-                    <h4 class="card-title">Daily Sales</h4>
                 </div>
                 <div class="card-body">
-                  <p class="card-category">
-                    <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>
+                  <p><?= $card[$i]['status']?></p>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
-                    <a href="#!" onclick="editme()"><i class="material-icons">create</i></a> <a href="" class="text-left"><i class="material-icons">delete</i> </a>
+                    <a href="#!" onclick="editme(<?= $card[$i]['id']?>)"><i class="material-icons">create</i></a> |
+                    <a href="<?= base_url('delete-card?id='.$card[$i]['id'])?>" class="text-left"><i class="material-icons">delete</i> </a>
                   </div>
                 </div>
               </div>
             </div>
+          <?php endfor; ?>
         </div>
     </div>
 </div>
@@ -153,6 +89,8 @@
     $('#tbl').hide();
     $('#form').show();
     $(this).attr('onclick', 'bckbtn()');
+    $('#cardno').val('');
+    $('#btnname').html("Create");
   });
   //bckbtn
   function bckbtn()
@@ -162,10 +100,16 @@
     $('#addbtn').removeAttr('onclick');
   }
   //editbtn
-  function editme()
+  function editme(cno)
   {
     $('#tbl').hide();
     $('#form').show();
+    $.get('edit-card?id='+cno, function(data){
+      $('#cardno').val(data.cardno);
+      $('#cardno').focus();
+      $('#fid').val(data.id);
+      $('#btnname').html("Update");
+    });
   }
 </script>
 <?php include('layout/footer.php'); ?>     

@@ -60,7 +60,7 @@
               <i class="material-icons">content_copy</i>
             </div>
             <p class="card-category">Total Cards</p>
-            <h3 class="card-title">49/10000
+            <h3 class="card-title"><?= $totalcard?>/10000
               <!-- <small>Card</small> -->
             </h3>
           </div>
@@ -81,7 +81,7 @@
               <i class="material-icons">store</i>
             </div>
             <p class="card-category">Shop keeper</p>
-            <h3 class="card-title">+12</h3>
+            <h3 class="card-title">+<?= $totalsk ?></h3>
           </div>
           <div class="card-footer">
             <div class="stats">
@@ -99,7 +99,7 @@
               <i class="material-icons">facebook</i>
             </div>
             <p class="card-category">Franchisee</p>
-            <h3 class="card-title">+75</h3>
+            <h3 class="card-title">+<?= $totalfrn?></h3>
           </div>
           <div class="card-footer">
             <div class="stats">
@@ -117,7 +117,7 @@
               <i class="material-icons">person</i>
             </div>
             <p class="card-category">Users</p>
-            <h3 class="card-title">+2</h3>
+            <h3 class="card-title">+<?= $totalus?></h3>
           </div>
           <div class="card-footer">
             <div class="stats">
@@ -132,24 +132,26 @@
       <div class="col-lg-12 col-md-12">
         <div class="card">
           <div class="card-header card-header-warning">
-            <h4 class="card-title">Employees Stats</h4>
-            <p class="card-category">New employees on 15th September, 2016</p>
+            <h4 class="card-title">Category Table</h4>
+            <p class="card-category">Last Updated Table Value</p>
           </div>
           <div class="card-body table-responsive">
             <table class="table table-hover">
               <thead class="text-warning">
                 <th>ID</th>
-                <th>Name</th>
-                <th>Salary</th>
-                <th>Country</th>
+                <th>Category Name</th>
+                <th>Category Icon</th>
+                <th>Dated</th>
               </thead>
               <tbody>
+                <?php $count = 1; for($i = 0;$i < count($category);$i++): ?>
                 <tr>
-                  <td>1</td>
-                  <td>Dakota Rice</td>
-                  <td>$36,738</td>
-                  <td>Niger</td>
+                  <td><?= $count++?></td>
+                  <td><?= $category[$i]['cat_name'] ?></td>
+                  <td><i class="fa fa-<?= $category[$i]['cat_icon'] ?>"></i></td>
+                  <td><?= date('F jS', strtotime($category[$i]['dated'])) ?></td>
                 </tr>
+                <?php endfor; ?>
               </tbody>
             </table>
           </div>

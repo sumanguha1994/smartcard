@@ -3,7 +3,7 @@
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
   <div class="container-fluid">
     <div class="navbar-wrapper">
-      <a class="navbar-brand" href="javascript:;">Franchise</a>
+      <a class="navbar-brand" href="javascript:;">Category</a>
     </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
       <span class="sr-only">Toggle navigation</span>
@@ -15,14 +15,17 @@
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" id="addbtn" href="javascript:;">
-                    <i class="material-icons">facebook</i>
-                    <p class="d-lg-none d-md-block">Franchise</p>
+                    <i class="material-icons">category</i>
+                    <p class="d-lg-none d-md-block">Members</p>
                 </a>
             </li>
         </ul>
     </div>
   </div>
 </nav>
+<a id="addbtnagn" href="#!" onclick="clll()" style="position: absolute;right: 167px;top: 5%;z-index:99">
+    <i class="material-icons">category</i>
+</a>
 <!-- End Navbar -->
 <div class="content" id="form">
   <div class="container-fluid">
@@ -30,41 +33,27 @@
         <div class="col-md-8">
             <div class="card">
             <div class="card-header card-header-primary">
-                <h4 class="card-title">Franchise Added</h4>
-                <p class="card-category">Create New Franchise</p>
+                <h4 class="card-title">Category Added</h4>
+                <p class="card-category">Create New Category</p>
             </div>
             <div class="card-body">
-                <form method="post" action="<?= base_url('create-franchise')?>">
+                <form method="post" action="<?= base_url('create-category')?>">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                     <div class="form-group">
-                        <label class="bmd-label-floating">Name</label>
-                        <input type="text" name="name" id="name" class="form-control">
+                        <label class="bmd-label-floating">Category</label>
+                        <input type="text" name="cat_name" id="cat_name" class="form-control">
                     </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                     <div class="form-group">
-                        <label class="bmd-label-floating">Email address</label>
-                        <input type="email" name="email" id="email" class="form-control">
+                        <label class="bmd-label-floating">category Icon</label>
+                        <input type="text" name="cat_icon" id="cat_icon" class="form-control">
                     </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="bmd-label-floating">Location</label>
-                        <input type="text" name="location" id="location" class="form-control">
-                    </div>
-                    </div>
-                    <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="bmd-label-floating">Phone Number</label>
-                        <input type="text" name="phone" id="phone" class="form-control">
-                    </div>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary pull-right"><span id="btnname">Create</span> Franchise</button>
                 <input type="hidden" name="id" id="fid">
+                <button type="submit" class="btn btn-primary pull-right"><span id="btnname">Create</span> Category</button>
                 <div class="clearfix"></div>
                 </form>
             </div>
@@ -79,36 +68,33 @@
         <div class="col-md-12">
             <div class="card">
             <div class="card-header card-header-primary">
-                <h4 class="card-title ">Franchise Table</h4>
-                <p class="card-category"> All franchise's listing here.</p>
+                <h4 class="card-title ">Category Table</h4>
+                <p class="card-category"> All Category listing here.</p>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                 <table class="table">
                     <thead class=" text-primary">
                         <th>#SL NO.</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Location</th>
-                        <th>Phone Number</th>
+                        <th>Category Name</th>
+                        <th>Category Icon</th>
                         <th>Action</th>
                     </thead>
                     <tbody>
-                    <?php $count = 1;
-                        for($i = 0;$i < count($fran);$i++):
+                    <?php 
+                      $count = 1;
+                      for($i = 0;$i < count($cat);$i++):
                     ?>
                     <tr>
                         <td><?= $count++?></td>
-                        <td><?= $fran[$i]['name']?></td>
-                        <td><?= $fran[$i]['phone']?></td>
-                        <td><?= $fran[$i]['location']?></td>
-                        <td><?= $fran[$i]['email']?></td>
+                        <td><?= $cat[$i]['cat_name']?></td>
+                        <td><i class="fa fa-<?= $cat[$i]['cat_icon']?>"></i></td>
                         <td>
-                            <a href="#!" onclick="editme(<?= $fran[$i]['id']?>)"><i class="fa fa-edit"></i></a> | 
-                            <a href="<?= base_url('delete-franchise?id='.$fran[$i]['id'])?>"><i class="fa fa-trash"></i></a>
+                          <a href="#!" onclick="editme(<?= $cat[$i]['id']; ?>)"><i class="fa fa-edit"></i></a> | 
+                          <a href="<?= base_url('delete-category?id='.$cat[$i]['id'])?>"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
-                    <?php endfor; ?>
+                      <?php endfor; ?>
                     </tbody>
                 </table>
                 </div>
@@ -120,21 +106,32 @@
 </div>
 <script>
   $(document).ready(function(){
-    $('#member').addClass('active');
+    $('#cat').addClass('active');
     $('#form').hide();
   });
+  function clll()
+  {
+    alert(1);
+  }
   //addbtn
   $('#addbtn').on('click', function(){
     $('#tbl').hide();
     $('#form').show();
     $(this).attr('onclick', 'bckbtn()');
-    $('#btnname').html("Create");
-    $('#name').val('');
-    $('#email').val('');
-    $('#location').val('');
-    $('#phone').val('');
+    $('#cat_name').val('');
+    $('#cat_icon').val('');
     $('#fid').val('');
+    $('#btnname').html("Create");
   });
+  // $('#addbtnagn').on('click', function(){
+  //   $('#tbl').hide();
+  //   $('#form').show();
+  //   $(this).attr('onclick', 'bckbtn()');
+  //   $('#cat_name').val('');
+  //   $('#cat_icon').val('');
+  //   $('#fid').val('');
+  //   $('#btnname').html("Create");
+  // });
   //bckbtn
   function bckbtn()
   {
@@ -145,14 +142,12 @@
   //edit 
   function editme(id)
   {
-    $.get('edit-franchise?id='+id, function(data){
+    $.get('edit-category?id='+id, function(data){
       $('#tbl').hide();
       $('#form').show();
-      $('#name').val(data.name);
-      $('#name').focus();
-      $('#email').val(data.email);
-      $('#location').val(data.location);
-      $('#phone').val(data.phone);
+      $('#cat_name').val(data.cat_name);
+      $('#cat_name').focus();
+      $('#cat_icon').val(data.cat_icon);
       $('#fid').val(data.id);
       $('#btnname').html("Update");
     });

@@ -1,0 +1,20 @@
+@media(min-width:767px){
+    #addbtnagn{
+        display:none;
+    }
+}
+@media(max-width:1024px){
+    #addbtnagn{
+        display:none;
+    }
+}
+@media(max-width:999px){
+    #addbtnagn{
+        display:block;
+    }
+}
+@media(max-width:767px){
+    #addbtnagn{
+        display:block;
+    }
+}

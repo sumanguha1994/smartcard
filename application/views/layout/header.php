@@ -41,6 +41,7 @@
   <link href="<?= base_url('assets/css/material-dashboard.min1c51.css?v=2.1.2'); ?>" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="<?= base_url('assets/demo/demo.css'); ?>" rel="stylesheet" />
+  <link href="<?= base_url('assets/demo/styleagn.css'); ?>" rel="stylesheet" />
   <!-- Google Tag Manager -->
   <script>
     (function(w, d, s, l, i) {
@@ -74,16 +75,40 @@
               <p>Dashboard</p>
             </a>
           </li>
+          <li class="nav-item" id="cat" >
+            <a class="nav-link" href="<?= base_url('/category')?>">
+              <i class="material-icons">category</i>
+              <p>category</p>
+            </a>
+          </li>
           <li class="nav-item" id="member">
             <a class="nav-link" href="<?= base_url('member')?>">
-              <i class="material-icons">account_box</i>
-              <p>Members</p>
+              <i class="material-icons">facebook</i>
+              <p>Franchise</p>
+            </a>
+          </li>
+          <li class="nav-item" id="sk">
+            <a class="nav-link" href="<?= base_url('shopkeeper')?>">
+              <i class="material-icons">store</i>
+              <p>Shop Keeper</p>
+            </a>
+          </li>
+          <li class="nav-item" id="pr">
+            <a class="nav-link" href="<?= base_url('user')?>">
+              <i class="material-icons">person</i>
+              <p>Users</p>
             </a>
           </li>
           <li class="nav-item" id="card">
             <a class="nav-link" href="<?= base_url('card')?>">
               <i class="material-icons">credit_card</i>
               <p>Cards</p>
+            </a>
+          </li>
+          <li class="nav-item" id="ic">
+            <a class="nav-link" href="<?= base_url('issue-card')?>">
+              <i class="material-icons">redeem</i>
+              <p>Issue Cards</p>
             </a>
           </li>
         </ul>
