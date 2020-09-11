@@ -11,6 +11,16 @@ class ShopKeeperModel extends CI_Model {
 
     public function create($sk)
     {
+        $folder = 'shop';
+        $this->upload->initialize($this->imgConfig($folder));
+        if(! $this->upload->do_upload('shpic')){
+            log_message('error', "Shop Image Not Uploaded");
+            $this->session->set_flashdata('picFail', "Picture Size OR Type Noy Allowed");
+            return false;
+        }else{
+            $data = array('data' => $this->upload->data());
+            $path = '/upload/shop/'. $data['data']['file_name'];
+        };
         $skArray = array(
             'shname' => $sk['shname'],
             'shphone' => $sk['shphone'],
@@ -18,8 +28,9 @@ class ShopKeeperModel extends CI_Model {
             'shlocation' => $sk['shlocation'],
             'category' => $sk['category'],
             'shaddress' => $sk['shaddress'],
-            'skphone' => $sk['skphone'],
-            'skuserid' => $sk['skuserid'],
+            'skphone' => $sk['skdes'],
+            'shpic' => $path,
+            'skuserid' => $sk['shphone'],
             'skpass' => $sk['skpass'],
         );
         if(isset($sk['id']) && !empty($sk['id'])){
@@ -56,5 +67,14 @@ class ShopKeeperModel extends CI_Model {
     {
         return $this->db->from('shopkeeper')
                         ->count_all_results();
+    }
+
+    //img config
+    public function imgConfig($folder){
+        $config = array();
+        $config['upload_path'] = './upload/'.$folder;
+        $config['allowed_types'] = 'gef|png|jpg|JPEG|pdf|zip';
+        $config['max_size'] = 4000;		
+        return $config;
     }
 }

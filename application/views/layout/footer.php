@@ -64,13 +64,13 @@
   <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
   <script src="<?= base_url('assets/js/plugins/nouislider.min.js');?>"></script>
   <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
-  <script src="../../../cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+  <script src="<?= base_url('assets/core.js')?>"></script>
   <!-- Library for adding dinamically elements -->
   <script src="<?= base_url('assets/js/plugins/arrive.min.js');?>"></script>
   <!--  Google Maps Plugin    -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2Yno10-YTnLjjn_Vtk0V8cdcY5lC4plU"></script>
   <!-- Place this tag in your head or just before your close body tag. -->
-  <script async defer src="../../../buttons.github.io/buttons.js"></script>
+  <script async defer src="<?= base_url('assets/buttons.js')?>"></script>
   <!-- Chartist JS -->
   <script src="<?= base_url('assets/js/plugins/chartist.min.js');?>"></script>
   <!--  Notifications Plugin    -->
@@ -325,7 +325,7 @@
         s = b.getElementsByTagName(e)[0];
         s.parentNode.insertBefore(t, s)
       }(window,
-        document, 'script', '../../../connect.facebook.net/en_US/fbevents.js');
+        document, 'script', '<?= base_url("assets/fbevents.js")?>');
 
       try {
         fbq('init', '111649226022273');
@@ -356,7 +356,7 @@
       s = b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t, s)
     }(window,
-      document, 'script', '../../../connect.facebook.net/en_US/fbevents.js');
+      document, 'script', '<?= base_url("assets/fbevents.js")?>');
 
     try {
       fbq('init', '111649226022273');

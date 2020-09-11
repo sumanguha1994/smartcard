@@ -23,7 +23,7 @@
     </div>
   </div>
 </nav>
-<a id="addbtnagn" href="#!" onclick="clll()" style="position: absolute;right: 167px;top: 5%;z-index:99">
+<a id="addbtnagn" href="#!" style="position: absolute;right: 167px;top: 5%;z-index:99">
     <i class="material-icons">category</i>
 </a>
 <!-- End Navbar -->
@@ -109,10 +109,6 @@
     $('#cat').addClass('active');
     $('#form').hide();
   });
-  function clll()
-  {
-    alert(1);
-  }
   //addbtn
   $('#addbtn').on('click', function(){
     $('#tbl').hide();
@@ -123,15 +119,15 @@
     $('#fid').val('');
     $('#btnname').html("Create");
   });
-  // $('#addbtnagn').on('click', function(){
-  //   $('#tbl').hide();
-  //   $('#form').show();
-  //   $(this).attr('onclick', 'bckbtn()');
-  //   $('#cat_name').val('');
-  //   $('#cat_icon').val('');
-  //   $('#fid').val('');
-  //   $('#btnname').html("Create");
-  // });
+  $('#addbtnagn').on('click', function(){
+    $('#tbl').hide();
+    $('#form').show();
+    $(this).attr('onclick', 'bckbtn()');
+    $('#cat_name').val('');
+    $('#cat_icon').val('');
+    $('#fid').val('');
+    $('#btnname').html("Create");
+  });
   //bckbtn
   function bckbtn()
   {

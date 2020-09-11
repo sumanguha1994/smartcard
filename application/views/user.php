@@ -41,6 +41,7 @@
                         <th>Customer Name</th>
                         <th>Customer Phone</th>
                         <th>Customer Card No</th>
+                        <th>Activator</th>
                         <th>Activate Date</th>
                         <th>Deactivate Date</th>
                         <th>Action</th>
@@ -54,6 +55,7 @@
                         <td><?= $customer[$i]['customer_name']?></td>
                         <td><?= $customer[$i]['customer_phone']?></td>
                         <td><?= $customer[$i]['customer_cards']?></td>
+                        <td></td>
                         <td><?= $customer[$i]['activate_date']?></td>
                         <td><?= $customer[$i]['deactivate_date']?></td>
                         <td>

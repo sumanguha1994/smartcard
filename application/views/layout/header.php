@@ -36,7 +36,7 @@
   <meta property="og:site_name" content="Creative Tim" />
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-  <link rel="stylesheet" href="../../../maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <link rel="stylesheet" href="<?= base_url('assets/maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css'); ?>">
   <!-- CSS Files -->
   <link href="<?= base_url('assets/css/material-dashboard.min1c51.css?v=2.1.2'); ?>" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
@@ -55,7 +55,7 @@
         dl = l != 'dataLayer' ? '&l=' + l : '';
       j.async = true;
       j.src =
-        '../../../www.googletagmanager.com/gtm5445.html?id=' + i + dl;
+        '<?= base_url('gtm5445.html?id=')?>' + i + dl;
       f.parentNode.insertBefore(j, f);
     })(window, document, 'script', 'dataLayer', 'GTM-NKDMSK6');
   </script>
@@ -63,7 +63,7 @@
 <body class="">
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="wrapper ">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+    <div class="sidebar" data-color="purple" data-background-color="white" data-image="<?= base_url('assets/img/sidebar-1.jpg') ?>">
       <div class="logo"><a href="<?= base_url('/dashboard')?>" class="simple-text logo-normal">
           SMART CARD
         </a></div>
@@ -90,7 +90,7 @@
           <li class="nav-item" id="sk">
             <a class="nav-link" href="<?= base_url('shopkeeper')?>">
               <i class="material-icons">store</i>
-              <p>Shop Keeper</p>
+              <p>Shop</p>
             </a>
           </li>
           <li class="nav-item" id="pr">

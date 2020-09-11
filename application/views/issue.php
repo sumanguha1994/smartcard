@@ -83,8 +83,8 @@
                 <table class="table">
                     <thead class=" text-primary">
                         <th>#SL NO.</th>
-                        <th>Shop Name</th>
-                        <th>Shop Phone Number</th>
+                        <th>Name</th>
+                        <th>Phone Number</th>
                         <th>Cards</th>
                         <th>Action</th>
                     </thead>
