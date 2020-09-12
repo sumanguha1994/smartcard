@@ -138,18 +138,24 @@
           <div class="card-body table-responsive">
             <table class="table table-hover">
               <thead class="text-warning">
-                <th>ID</th>
-                <th>Category Name</th>
-                <th>Category Icon</th>
-                <th>Dated</th>
+                <th>#SL NO.</th>
+                <th>Customer Name</th>
+                <th>Customer Phone</th>
+                <th>Customer Card No</th>
+                <th>Activator</th>
+                <th>Activate Date</th>
+                <th>Deactivate Date</th>
               </thead>
               <tbody>
-                <?php $count = 1; for($i = 0;$i < count($category);$i++): ?>
+                <?php $count = 1; for($i = 0;$i < count($customer);$i++): ?>
                 <tr>
                   <td><?= $count++?></td>
-                  <td><?= $category[$i]['cat_name'] ?></td>
-                  <td><i class="fa fa-<?= $category[$i]['cat_icon'] ?>"></i></td>
-                  <td><?= date('F jS', strtotime($category[$i]['dated'])) ?></td>
+                  <td><?= $customer[$i]['customer_name']?></td>
+                  <td><?= $customer[$i]['customer_phone']?></td>
+                  <td><?= $customer[$i]['customer_cards']?></td>
+                  <td><?= $customer[$i]['shphone']?></td>
+                  <td><?= $customer[$i]['activate_date']?></td>
+                  <td><?= $customer[$i]['deactivate_date']?></td>
                 </tr>
                 <?php endfor; ?>
               </tbody>

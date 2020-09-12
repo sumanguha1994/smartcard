@@ -36,22 +36,25 @@
             <div class="card-body">
                 <form method="post" action="<?= base_url('create-issuecard')?>">
                 <div class="row">
-                    <div class="col-md-6">
+                <div class="col-md-6">
                     <div class="form-group">
-                        <label class="bmd-label-floating">Shop Name</label>
-                        <select name="shname" id="shname" class="form-control">
-                            <option value="null" disabled selected>Choose Shop--</option>
-                            <?php for($i = 0;$i < count($shop);$i++):?>
-                                <option value="<?= $shop[$i]['id']?>"><?= $shop[$i]['shname']?></option>
-                            <?php endfor;?>
+                        <label class="bmd-label-floating">Select</label>
+                        <select name="issueto" id="issueto" class="form-control">
+                            <option value="null" disabled>Choose Shop...</option>
+                            <option value="Franchise">Franchise</option>
+                            <option value="Shop">Shop</option>
                         </select>
                     </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                    <div class="form-group namediv"></div>
                     </div>
                     <div class="col-md-6">
                     <div class="form-group">
                         <label class="bmd-label-floating">Cards</label>
                         <select name="cardno" id="cardno" class="form-control">
-                            <option value="null" disabled selected>Choose Card--</option>
                             <?php for($j = 0;$j < count($cards);$j++): ?>
                                 <option value="<?= $cards[$j]['id']?>"><?= $cards[$j]['cardno']?> &nbsp; (<?= $cards[$j]['status']?>)</option>
                             <?php endfor; ?>
@@ -83,6 +86,7 @@
                 <table class="table">
                     <thead class=" text-primary">
                         <th>#SL NO.</th>
+                        <th>Issued To</th>
                         <th>Name</th>
                         <th>Phone Number</th>
                         <th>Cards</th>
@@ -94,8 +98,9 @@
                     ?>
                     <tr>
                         <td><?= $count++?></td>
-                        <td><?= $is[$i]['sh_name']?></td>
-                        <td><?= $is[$i]['shphone']?></td>
+                        <td><?= $is[$i]['issuefor']?></td>
+                        <td><?= $is[$i]['issueto']?></td>
+                        <td><?= $is[$i]['issuetoph']?></td>
                         <td><?= $is[$i]['card_no']?></td>
                         <td>
                             <a href="#!" onclick="editme(<?= $is[$i]['id']?>)"><i class="fa fa-edit"></i></a> | 
@@ -122,6 +127,7 @@
     $('#tbl').hide();
     $('#form').show();
     $(this).attr('onclick', 'bckbtn()');
+    $('#issueto').val('');
     $('#btnname').html("Create");
     $('#cardno').removeAttr('disabled');
     $('#shname').val('');
@@ -142,12 +148,37 @@
     $.get('edit-issuecard?id='+id, function(data){
       $('#tbl').hide();
       $('#form').show();
-      $('#shname').val(data.shname);
-      $('#shname').focus();
+      issuefun(data.issuefor);
+      $('#issueto').val(data.issuefor);
       $('#cardno').val(data.cardno);
       $('#cardno').attr('disabled', true);
       $('#fid').val(data.id);
+      if(data.issuefor == 'Franchise'){
+        $('#shname option[value="'+data.frname+'"]').attr('selected', 'selected');
+      }else{
+        $('#shname option[value="'+data.frname+'"]').attr('selected', 'selected');
+      }
       $('#btnname').html("Update");
+    });
+  }
+  $('#issueto').on('change', function(){
+    let issueto = $(this).val();
+    issuefun(issueto);
+  });
+  function issuefun(issueto)
+  {
+    $.get('get-name?issueto='+issueto, function(data){
+        $('.namediv').html('');
+        let makehtml;
+        makehtml = '<label class="bmd-label-floating">Name</label>';
+        makehtml += '<select name="name" id="shname" class="form-control">';
+        makehtml += '<option value="null" disabled>Choose '+issueto+'...</option>';
+        for(let i = 0;i < data.length;i++)
+        {
+            makehtml += '<option value="'+data[i]['id']+'">'+data[i]['name']+'</option>';
+        }
+        makehtml += '</select>';
+        $('.namediv').append(makehtml);
     });
   }
 </script>

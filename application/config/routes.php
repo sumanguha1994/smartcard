@@ -35,6 +35,10 @@ $route['edit-card'] = 'Card/editcard';
 $route['delete-card'] = 'Card/deletecard';
 //issue card
 $route['issue-card'] = 'Welcome/issuecard';
+$route['get-name'] = 'Card/getname';
 $route['create-issuecard'] = 'Card/createissuecard';
 $route['edit-issuecard'] = 'Card/editissuecard';
 $route['delete-issuecard'] = 'Card/deleteissuecard';
+//issue user
+$route['issue-user'] = 'Welcome/issueuser';
+$route['create-issueuser'] = 'Card/createissueuser';

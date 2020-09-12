@@ -55,7 +55,7 @@
                         <td><?= $customer[$i]['customer_name']?></td>
                         <td><?= $customer[$i]['customer_phone']?></td>
                         <td><?= $customer[$i]['customer_cards']?></td>
-                        <td></td>
+                        <td><?= $customer[$i]['shphone']?></td>
                         <td><?= $customer[$i]['activate_date']?></td>
                         <td><?= $customer[$i]['deactivate_date']?></td>
                         <td>

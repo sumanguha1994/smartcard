@@ -21,7 +21,7 @@ class Welcome extends CI_Controller {
 		$data['totalsk'] = $this->sk->total();
 		$data['totalfrn'] = $this->franch->total();
 		$data['totalus'] = $this->us->total();
-		$data['category'] = $this->cat->getAllCat();
+		$data['customer'] = $this->us->getAllUs();
 		$this->load->view('dashboard', $data);
 	}
 //dashboard
@@ -31,7 +31,7 @@ class Welcome extends CI_Controller {
 		$data['totalsk'] = $this->sk->total();
 		$data['totalfrn'] = $this->franch->total();
 		$data['totalus'] = $this->us->total();
-		$data['category'] = $this->cat->getAllCat();
+		$data['customer'] = $this->us->getAllUs();
 		$this->load->view('dashboard', $data);
 	}
 //categpry
@@ -68,9 +68,14 @@ class Welcome extends CI_Controller {
 //issue card
 	public function issuecard()
 	{
-		$data['shop'] = $this->sk->getAllSk();
 		$data['cards'] = $this->card->getClauseCard();
 		$data['is'] = $this->issue->getAllIssueCard();
 		$this->load->view('issue', $data);
+	}
+//issue user
+	public function issueuser()
+	{
+		$data['cards'] = $this->card->getOnlyFrCard();
+		$this->load->view('issueuser', $data);
 	}
 }

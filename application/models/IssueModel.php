@@ -9,18 +9,57 @@ class IssueModel extends CI_Model {
         $this->load->database();
     }
 
+    public function getname($issueto)
+    {
+        $data = array();
+        if($issueto == 'Franchise'){
+            $fr = $this->db->select('*')->from('franchise')
+                            ->get()
+                            ->result_array();
+            for($i = 0;$i < count($fr);$i++)
+            {
+                $data[$i]['id'] = $fr[$i]['id'];
+                $data[$i]['name'] = $fr[$i]['name'];
+            }
+        }else{
+            $sh = $this->db->select('*')->from('shopkeeper')
+                            ->get()
+                            ->result_array();
+            for($i = 0;$i < count($sh);$i++)
+            {
+                $data[$i]['id'] = $sh[$i]['id'];
+                $data[$i]['name'] = $sh[$i]['shname'];
+            }
+        }
+        return $data;
+    }
     public function create($issuecard)
     {
-        $issueCardArray = array(
-            'shname' => $issuecard['shname'],
-            'cardno' => $issuecard['cardno'],
-        );
+        if($issuecard['issueto'] == 'Franchise'){
+            $issueCardArray = array(
+                'issuefor' => 'Franchise',
+                'shname' => '',
+                'frname' => $issuecard['name'],
+                'cardno' => $issuecard['cardno'],
+            );
+        }else{
+            $issueCardArray = array(
+                'issuefor' => 'Shop',
+                'shname' => $issuecard['name'],
+                'frname' => '',
+                'cardno' => $issuecard['cardno'],
+            );
+        }
         if(isset($issuecard['id']) && !empty($issuecard['id'])){
             $this->db->where('id', $issuecard['id'])
                         ->update('issue', $issueCardArray);
         }else{
             $this->db->insert('issue', $issueCardArray);
-            $this->updateCardStatus($issuecard['cardno'], 'issued');
+            if($issuecard['issueto'] == 'Franchise'){
+                $this->updateCardStatus($issuecard['cardno'], 'Issued to Franchise');
+            }else{
+                $this->updateCardStatus($issuecard['cardno'], 'Issued to Shop');
+            }
         }   
         return true;
     }
@@ -35,17 +74,35 @@ class IssueModel extends CI_Model {
 
     public function getAllIssueCard()
     {
-        return $this->db->select('i.*, sk.shname as sh_name, sk.shphone, c.cardno as card_no')->from('issue as i')
-                        ->join('shopkeeper as sk', 'sk.id = i.shname')
-                        ->join('card as c', 'c.id = i.cardno')
-                        ->get()
-                        ->result_array();
+        $issue = $this->db->select('i.*, c.cardno as card_no')->from('issue as i')
+                            ->join('card as c', 'c.id = i.cardno')
+                            ->get()
+                            ->result_array();
+        for($i = 0;$i < count($issue);$i++)
+        {
+            if($issue[$i]['issuefor'] == 'Franchise'){
+                $fr = $this->db->select('name, phone')->from('franchise')
+                                ->where('id', $issue[$i]['frname'])
+                                ->get()
+                                ->row();
+                $issue[$i]['issueto'] = $fr->name;
+                $issue[$i]['issuetoph'] = $fr->phone;
+            }else{
+                $sh = $this->db->select('shname, shphone')->from('shopkeeper')
+                                ->where('id', $issue[$i]['shname'])
+                                ->get()
+                                ->row();
+                $issue[$i]['issueto'] = $sh->shname;
+                $issue[$i]['issuetoph'] = $sh->shphone;
+            }
+        }
+        return $issue;
     }
 
     public function delete($id)
     {
         $card = $this->getIssueCard($id);
-        $this->updateCardStatus($card->cardno, 'deactive');
+        $this->updateCardStatus($card->cardno, 'Not Issued');
         return $this->db->where('id', $id)->from('issue')->delete();
     }
 

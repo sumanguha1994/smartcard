@@ -111,6 +111,12 @@
               <p>Issue Cards</p>
             </a>
           </li>
+          <li class="nav-item" id="ic">
+            <a class="nav-link" href="<?= base_url('issue-user')?>">
+              <i class="material-icons">assignment_ind</i>
+              <p>Issue User</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>

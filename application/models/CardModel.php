@@ -45,8 +45,9 @@ class CardModel extends CI_Model {
 
     public function getClauseCard()
     {
-        return $this->db->where('status', 'deactive')
-                        ->or_where('status', 'issued')
+        return $this->db->where('status', 'Not Issued')
+                        ->or_where('status', 'Issued to Franchise')
+                        ->or_where('status', 'Issued to Shop')
                         ->get('card')
                         ->result_array();
     }
@@ -55,5 +56,13 @@ class CardModel extends CI_Model {
     {
         return $this->db->from('card')
                         ->count_all_results();
+    }
+
+    public function getOnlyFrCard()
+    {
+        return $this->db->select('*')->from('card')
+                        ->where('status', 'Issued to Franchise')
+                        ->get()
+                        ->result_array();
     }
 }

@@ -9,6 +9,7 @@ class Card extends CI_Controller {
         $this->load->database(); 
         $this->load->model('CardModel', 'card');
         $this->load->model('IssueModel', 'issue');
+        $this->load->model('UserModel', 'us');
     }
 
     public function createcard()
@@ -28,6 +29,12 @@ class Card extends CI_Controller {
         return redirect('card');
     }
 //issue cards
+    public function getname()
+    {
+        $issue = $this->issue->getname($this->input->get('issueto'), true);
+        header('Content-Type: application/json');
+        echo json_encode($issue);
+    }
     public function createissuecard()
     {
         $this->issue->create($this->input->post(), true);
@@ -43,5 +50,11 @@ class Card extends CI_Controller {
     {
         $this->issue->delete($this->input->get('id'), true);
         return redirect('issue-card');
+    }
+//issue user
+    public function createissueuser()
+    {
+        $this->us->create($this->input->post(), true);
+        return redirect('user');
     }
 }
