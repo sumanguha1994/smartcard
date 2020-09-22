@@ -48,7 +48,9 @@
                     <div class="col-md-4">
                     <div class="form-group">
                         <label class="bmd-label-floating">category Icon</label>
-                        <input type="text" name="cat_icon" id="cat_icon" class="form-control">
+                        <select name="cat_icon" id="cat_icon" class="form-control">
+                          <option value="assets/icon/car-service.png"><img src="<?= base_url('assets/icon/car-service.png')?>" alt="" ></option>
+                        </select>
                     </div>
                     </div>
                 </div>

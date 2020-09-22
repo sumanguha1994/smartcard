@@ -32,6 +32,7 @@ class ShopKeeperModel extends CI_Model {
             'shpic' => $path,
             'skuserid' => $sk['shphone'],
             'skpass' => $sk['skpass'],
+            'creatorid' => $this->session->userdata('loginid'),
         );
         if(isset($sk['id']) && !empty($sk['id'])){
             $this->db->where('id', $sk['id'])
@@ -52,10 +53,18 @@ class ShopKeeperModel extends CI_Model {
 
     public function getAllSk()
     {
-        return $this->db->select('s.*, c.cat_name')->from('shopkeeper as s')
-                        ->join('category as c', 'c.id = s.category')
-                        ->get()
-                        ->result_array();
+        if($this->session->userdata('loginrole') != 'franchise'){
+            return $this->db->select('s.*, c.cat_name')->from('shopkeeper as s')
+                            ->join('category as c', 'c.id = s.category')
+                            ->get()
+                            ->result_array();
+        }else{
+            return $this->db->select('s.*, c.cat_name')->from('shopkeeper as s')
+                            ->join('category as c', 'c.id = s.category')
+                            ->where('s.creatorid', $this->session->userdata('loginid'))
+                            ->get()
+                            ->result_array();
+        }
     }
 
     public function delete($id)

@@ -14,6 +14,7 @@ class IssueModel extends CI_Model {
         $data = array();
         if($issueto == 'Franchise'){
             $fr = $this->db->select('*')->from('franchise')
+                            ->where('role', 'franchise')
                             ->get()
                             ->result_array();
             for($i = 0;$i < count($fr);$i++)
@@ -74,28 +75,48 @@ class IssueModel extends CI_Model {
 
     public function getAllIssueCard()
     {
-        $issue = $this->db->select('i.*, c.cardno as card_no')->from('issue as i')
+        if($this->session->userdata('loginrole') != 'franchise'){
+            $issue = $this->db->select('i.*, c.cardno as card_no, c.status as cstat')->from('issue as i')
+                                ->join('card as c', 'c.id = i.cardno')
+                                ->get()
+                                ->result_array();
+            for($i = 0;$i < count($issue);$i++)
+            {
+                if($issue[$i]['issuefor'] == 'Franchise'){
+                    $fr = $this->db->select('name, phone')->from('franchise')
+                                    ->where('id', $issue[$i]['frname'])
+                                    ->get()
+                                    ->row();
+                    $issue[$i]['issueto'] = $fr->name;
+                    $issue[$i]['issuetoph'] = $fr->phone;
+                }else{
+                    $sh = $this->db->select('shname, shphone')->from('shopkeeper')
+                                    ->where('id', $issue[$i]['shname'])
+                                    ->get()
+                                    ->row();
+                    $issue[$i]['issueto'] = $sh->shname;
+                    $issue[$i]['issuetoph'] = $sh->shphone;
+                }
+            }
+        }else{
+            $issue = $this->db->select('i.*, c.cardno as card_no, c.status as cstat')->from('issue as i')
                             ->join('card as c', 'c.id = i.cardno')
+                            ->where('i.frname', $this->session->userdata('loginid'))
                             ->get()
                             ->result_array();
-        for($i = 0;$i < count($issue);$i++)
-        {
-            if($issue[$i]['issuefor'] == 'Franchise'){
-                $fr = $this->db->select('name, phone')->from('franchise')
-                                ->where('id', $issue[$i]['frname'])
-                                ->get()
-                                ->row();
-                $issue[$i]['issueto'] = $fr->name;
-                $issue[$i]['issuetoph'] = $fr->phone;
-            }else{
-                $sh = $this->db->select('shname, shphone')->from('shopkeeper')
-                                ->where('id', $issue[$i]['shname'])
-                                ->get()
-                                ->row();
-                $issue[$i]['issueto'] = $sh->shname;
-                $issue[$i]['issuetoph'] = $sh->shphone;
+            for($i = 0;$i < count($issue);$i++)
+            {
+                if($issue[$i]['issuefor'] == 'Franchise'){
+                    $fr = $this->db->select('name, phone')->from('franchise')
+                                    ->where('id', $issue[$i]['frname'])
+                                    ->get()
+                                    ->row();
+                    $issue[$i]['issueto'] = $fr->name;
+                    $issue[$i]['issuetoph'] = $fr->phone;
+                }
             }
         }
+        
         return $issue;
     }
 

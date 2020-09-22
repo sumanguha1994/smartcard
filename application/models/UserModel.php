@@ -18,7 +18,7 @@ class UserModel extends CI_Model {
             'customer_cards' => $card->cardno,
             'activate_date' => date('Y-m-d'),
             'activated_by' => 'fr',
-            'activator_id' => '3',
+            'activator_id' => $this->session->userdata('loginid'),
             'deactivate_date' => date('Y-m-d', strtotime('+5 years'))
         );
         if(isset($sk['id']) && !empty($sk['id'])){

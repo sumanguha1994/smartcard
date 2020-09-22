@@ -16,6 +16,7 @@ class FranchiseModel extends CI_Model {
             'email' => $franch['email'],
             'location' => $franch['location'],
             'phone' => $franch['phone'],
+            'password' => $franch['password']
         );
         if(isset($franch['id']) && !empty($franch['id'])){
             $this->db->where('id', $franch['id'])
@@ -36,9 +37,17 @@ class FranchiseModel extends CI_Model {
 
     public function getAllFranch()
     {
-        return $this->db->select('*')->from('franchise')
-                        ->get()
-                        ->result_array();
+        if($this->session->userdata('loginrole') != 'franchise'){
+            return $this->db->select('*')->from('franchise')
+                            ->where('role', 'franchise')
+                            ->get()
+                            ->result_array();
+        }else{
+            return $this->db->select('*')->from('franchise')
+                            ->where('id', $this->session->userdata('loginid'))
+                            ->get()
+                            ->result_array();
+        }
     }
 
     public function delete($id)

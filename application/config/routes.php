@@ -7,9 +7,12 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['migrate'] = 'Migrate';
 
+//login
+$route['/'] = 'Welcome/index';
+$route['logout'] = 'Welcome/logout';
 //dashboard
 $route['dashboard'] = 'Welcome/dashboard';
-
+$route['login-checking'] = 'Welcome/loginchecking';
 //category
 $route['category'] = 'Welcome/category';
 $route['create-category'] = 'Category/categoryCreate';

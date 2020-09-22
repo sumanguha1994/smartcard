@@ -101,7 +101,7 @@
                         <td><?= $is[$i]['issuefor']?></td>
                         <td><?= $is[$i]['issueto']?></td>
                         <td><?= $is[$i]['issuetoph']?></td>
-                        <td><?= $is[$i]['card_no']?></td>
+                        <td><?= $is[$i]['card_no']?>&nbsp;&nbsp;(<?= $is[$i]['cstat']?>)</td>
                         <td>
                             <a href="#!" onclick="editme(<?= $is[$i]['id']?>)"><i class="fa fa-edit"></i></a> | 
                             <a href="<?= base_url('delete-issuecard?id='.$is[$i]['id'])?>"><i class="fa fa-trash"></i></a>

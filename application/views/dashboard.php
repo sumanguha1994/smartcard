@@ -41,7 +41,7 @@
             <a class="dropdown-item" href="#">Profile</a>
             <a class="dropdown-item" href="#">Settings</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Log out</a>
+            <a class="dropdown-item" href="<?= base_url('logout')?>">Log out</a>
           </div>
         </li>
       </ul>
@@ -60,7 +60,7 @@
               <i class="material-icons">content_copy</i>
             </div>
             <p class="card-category">Total Cards</p>
-            <h3 class="card-title"><?= $totalcard?>/10000
+            <h3 class="card-title">+<?= $totalcard?>
               <!-- <small>Card</small> -->
             </h3>
           </div>

@@ -63,6 +63,14 @@
                     </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="bmd-label-floating">Password</label>
+                        <input type="text" name="password" id="password" class="form-control">
+                    </div>
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-primary pull-right"><span id="btnname">Create</span> Franchise</button>
                 <input type="hidden" name="id" id="fid">
                 <div class="clearfix"></div>
@@ -133,6 +141,7 @@
     $('#email').val('');
     $('#location').val('');
     $('#phone').val('');
+    $('#password').val('');
     $('#fid').val('');
   });
   //bckbtn
@@ -154,6 +163,7 @@
       $('#location').val(data.location);
       $('#phone').val(data.phone);
       $('#fid').val(data.id);
+      $('#password').val(data.password);
       $('#btnname').html("Update");
     });
   }

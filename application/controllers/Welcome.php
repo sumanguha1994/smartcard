@@ -13,16 +13,36 @@ class Welcome extends CI_Controller {
 		$this->load->model('UserModel', 'us');
 		$this->load->model('CardModel', 'card');
 		$this->load->model('IssueModel', 'issue');
+		$this->load->model('LoginModel', 'lg');
 	}
-
+//login
 	public function index()
 	{
-		$data['totalcard'] = $this->card->total();
-		$data['totalsk'] = $this->sk->total();
-		$data['totalfrn'] = $this->franch->total();
-		$data['totalus'] = $this->us->total();
-		$data['customer'] = $this->us->getAllUs();
-		$this->load->view('dashboard', $data);
+		if($this->session->userdata('loginid') != ''){
+			return redirect('dashboard');
+		}else{
+			$this->load->view('login');
+		}
+	}
+	public function loginchecking()
+	{
+		if($this->lg->checklogin($this->input->post(), true)){
+			return redirect('dashboard');
+		}else{
+			$this->session->set_flashdata('error', "UserID OR Password doesn't matched !!");
+			return redirect('/');
+		}
+	}
+	public function logout()
+	{
+		$this->session->unset_userdata('loginid');
+		$this->session->unset_userdata('loginrole');
+		$this->session->sess_destroy();
+		if($this->session->userdata('loginid') != ''){
+			return redirect('dashboard');
+		}else{
+			$this->load->view('login');
+		}
 	}
 //dashboard
 	public function dashboard()

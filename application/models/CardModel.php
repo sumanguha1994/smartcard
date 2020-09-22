@@ -33,9 +33,17 @@ class CardModel extends CI_Model {
 
     public function getAllCard()
     {
-        return $this->db->select('*')->from('card')
-                        ->get()
-                        ->result_array();
+        if($this->session->userdata('loginrole') != 'franchise'){
+            return $this->db->select('*')->from('card')
+                            ->get()
+                            ->result_array();
+        }else{
+            return $this->db->select('c.*')->from('card as c')
+                            ->join('issue as i', 'i.cardno = c.id')
+                            ->where('i.frname', $this->session->userdata('loginid'))
+                            ->get()
+                            ->result_array();
+        }
     }
 
     public function delete($id)
@@ -60,9 +68,18 @@ class CardModel extends CI_Model {
 
     public function getOnlyFrCard()
     {
-        return $this->db->select('*')->from('card')
-                        ->where('status', 'Issued to Franchise')
-                        ->get()
-                        ->result_array();
+        if($this->session->userdata('loginrole') != 'franchise'){
+            return $this->db->select('*')->from('card')
+                            ->where('status', 'Issued to Franchise')
+                            ->get()
+                            ->result_array();
+        }else{
+            return $this->db->select('c.*')->from('card as c')
+                            ->join('issue as i', 'i.cardno = c.id')
+                            ->where('i.frname', $this->session->userdata('loginid'))
+                            ->where('c.status', 'Issued to Franchise')
+                            ->get()
+                            ->result_array();
+        }
     }
 }
