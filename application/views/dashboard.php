@@ -53,6 +53,7 @@
   <div class="container-fluid">
     <div class="row">
       <!-- card -->
+      <?php if($this->session->userdata('loginrole') != 'franchise'):?>
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card card-stats">
           <div class="card-header card-header-warning card-header-icon">
@@ -72,6 +73,7 @@
           </div>
         </div>
       </div>
+      <?php endif; ?>
       <!-- card -->
       <!-- shopkeeper -->
       <div class="col-lg-3 col-md-6 col-sm-6">

@@ -75,12 +75,14 @@
               <p>Dashboard</p>
             </a>
           </li>
+          <?php if($this->session->userdata('loginrole') != 'franchise'):?>
           <li class="nav-item" id="cat" >
             <a class="nav-link" href="<?= base_url('/category')?>">
               <i class="material-icons">category</i>
               <p>category</p>
             </a>
           </li>
+          <?php endif; ?>
           <li class="nav-item" id="member">
             <a class="nav-link" href="<?= base_url('member')?>">
               <i class="material-icons">facebook</i>

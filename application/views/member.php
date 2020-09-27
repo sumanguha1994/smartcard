@@ -13,12 +13,14 @@
     </button>
     <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav">
+        <?php if($this->session->userdata('loginrole') != 'franchise'):?>
             <li class="nav-item">
                 <a class="nav-link" id="addbtn" href="javascript:;">
                     <i class="material-icons">facebook</i>
                     <p class="d-lg-none d-md-block">Franchise</p>
                 </a>
             </li>
+        <?php endif; ?>
         </ul>
     </div>
   </div>

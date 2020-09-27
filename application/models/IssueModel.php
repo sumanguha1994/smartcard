@@ -36,32 +36,38 @@ class IssueModel extends CI_Model {
     }
     public function create($issuecard)
     {
-        if($issuecard['issueto'] == 'Franchise'){
-            $issueCardArray = array(
-                'issuefor' => 'Franchise',
-                'shname' => '',
-                'frname' => $issuecard['name'],
-                'cardno' => $issuecard['cardno'],
-            );
-        }else{
-            $issueCardArray = array(
-                'issuefor' => 'Shop',
-                'shname' => $issuecard['name'],
-                'frname' => '',
-                'cardno' => $issuecard['cardno'],
-            );
-        }
-        if(isset($issuecard['id']) && !empty($issuecard['id'])){
-            $this->db->where('id', $issuecard['id'])
-                        ->update('issue', $issueCardArray);
-        }else{
-            $this->db->insert('issue', $issueCardArray);
-            if($issuecard['issueto'] == 'Franchise'){
-                $this->updateCardStatus($issuecard['cardno'], 'Issued to Franchise');
-            }else{
-                $this->updateCardStatus($issuecard['cardno'], 'Issued to Shop');
+        for($i = 0;$i < count($issuecard['cardno']);$i++)
+        {
+            if(empty($issuecard['id'])){
+                $this->db->where('cardno', $issuecard['cardno'][$i])->from('issue')->delete();
             }
-        }   
+            if($issuecard['issueto'] == 'Franchise'){
+                $issueCardArray = array(
+                    'issuefor' => 'Franchise',
+                    'shname' => '',
+                    'frname' => $issuecard['name'],
+                    'cardno' => $issuecard['cardno'][$i],
+                );
+            }else{
+                $issueCardArray = array(
+                    'issuefor' => 'Shop',
+                    'shname' => $issuecard['name'],
+                    'frname' => '',
+                    'cardno' => $issuecard['cardno'][$i],
+                );
+            }
+            if(isset($issuecard['id']) && !empty($issuecard['id'])){
+                $this->db->where('id', $issuecard['id'])
+                            ->update('issue', $issueCardArray);
+            }else{
+                $this->db->insert('issue', $issueCardArray);
+                if($issuecard['issueto'] == 'Franchise'){
+                    $this->updateCardStatus($issuecard['cardno'][$i], 'Issued to Franchise');
+                }else{
+                    $this->updateCardStatus($issuecard['cardno'][$i], 'Issued to Shop');
+                }
+            }   
+        }
         return true;
     }
 

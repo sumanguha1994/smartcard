@@ -53,11 +53,20 @@ class CardModel extends CI_Model {
 
     public function getClauseCard()
     {
-        return $this->db->where('status', 'Not Issued')
-                        ->or_where('status', 'Issued to Franchise')
-                        ->or_where('status', 'Issued to Shop')
-                        ->get('card')
-                        ->result_array();
+        if($this->session->userdata('loginrole') != 'franchise'):
+            return $this->db->where('status', 'Not Issued')
+                            ->or_where('status', 'Issued to Franchise')
+                            ->or_where('status', 'Issued to Shop')
+                            ->get('card')
+                            ->result_array();
+        else:
+            return $this->db->select('c.*')->from('card as c')
+                            ->join('issue as i', 'i.cardno = c.id')
+                            ->where('c.status', 'Issued to Franchise')
+                            ->where('i.frname', $this->session->userdata('loginid'))
+                            ->get()
+                            ->result_array();
+        endif;
     }
 
     public function total()

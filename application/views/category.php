@@ -45,12 +45,23 @@
                         <input type="text" name="cat_name" id="cat_name" class="form-control">
                     </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-9">
                     <div class="form-group">
                         <label class="bmd-label-floating">category Icon</label>
-                        <select name="cat_icon" id="cat_icon" class="form-control">
-                          <option value="assets/icon/car-service.png"><img src="<?= base_url('assets/icon/car-service.png')?>" alt="" ></option>
-                        </select>
+                        <br />
+                        <input type="radio" name="cat_icon" id="cat_icon" value="assets/icon/car-service.png" title="Car Service">&nbsp;<img src="<?= base_url('assets/icon/car-service.png')?>" alt="">
+                        &nbsp;&nbsp;
+                        <input type="radio" name="cat_icon" id="cat_icon" value="assets/icon/dish.png" title="Dish">&nbsp;<img src="<?= base_url('assets/icon/dish.png')?>" alt="">
+                        &nbsp;&nbsp;
+                        <input type="radio" name="cat_icon" id="cat_icon" value="assets/icon/pet-shop.png" title="Pet Shop">&nbsp;<img src="<?= base_url('assets/icon/pet-shop.png')?>" alt="">
+                        &nbsp;&nbsp;
+                        <input type="radio" name="cat_icon" id="cat_icon" value="assets/icon/shop (1).png" title="Friut Shop">&nbsp;<img src="<?= base_url('assets/icon/shop (1).png')?>" alt="">
+                        &nbsp;&nbsp;
+                        <input type="radio" name="cat_icon" id="cat_icon" value="assets/icon/shop (2).png" title="Friut Shop">&nbsp;<img src="<?= base_url('assets/icon/shop (2).png')?>" alt="">
+                        &nbsp;&nbsp;
+                        <input type="radio" name="cat_icon" id="cat_icon" value="assets/icon/shop (3).png" title="Friut Shop">&nbsp;<img src="<?= base_url('assets/icon/shop (3).png')?>" alt="">
+                        &nbsp;&nbsp;
+                        <input type="radio" name="cat_icon" id="cat_icon" value="assets/icon/shop.png" title="Shop">&nbsp;<img src="<?= base_url('assets/icon/shop.png')?>" alt="">
                     </div>
                     </div>
                 </div>
@@ -90,7 +101,7 @@
                     <tr>
                         <td><?= $count++?></td>
                         <td><?= $cat[$i]['cat_name']?></td>
-                        <td><i class="fa fa-<?= $cat[$i]['cat_icon']?>"></i></td>
+                        <td><img src="<?= base_url($cat[$i]['cat_icon'])?>" alt=""></td>
                         <td>
                           <a href="#!" onclick="editme(<?= $cat[$i]['id']; ?>)"><i class="fa fa-edit"></i></a> | 
                           <a href="<?= base_url('delete-category?id='.$cat[$i]['id'])?>"><i class="fa fa-trash"></i></a>
@@ -117,8 +128,8 @@
     $('#form').show();
     $(this).attr('onclick', 'bckbtn()');
     $('#cat_name').val('');
-    $('#cat_icon').val('');
     $('#fid').val('');
+    $('input:radio[name="cat_icon"]').removeAttr('checked');
     $('#btnname').html("Create");
   });
   $('#addbtnagn').on('click', function(){
@@ -126,8 +137,8 @@
     $('#form').show();
     $(this).attr('onclick', 'bckbtn()');
     $('#cat_name').val('');
-    $('#cat_icon').val('');
     $('#fid').val('');
+    $('input:radio[name="cat_icon"]').removeAttr('checked');
     $('#btnname').html("Create");
   });
   //bckbtn
@@ -145,7 +156,7 @@
       $('#form').show();
       $('#cat_name').val(data.cat_name);
       $('#cat_name').focus();
-      $('#cat_icon').val(data.cat_icon);
+      $("input:radio[value='"+data.cat_icon+"']").attr('checked',true);
       $('#fid').val(data.id);
       $('#btnname').html("Update");
     });

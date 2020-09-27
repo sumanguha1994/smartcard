@@ -31,6 +31,11 @@
             <div class="card">
             <div class="card-header card-header-primary">
                 <h4 class="card-title">Shop Added</h4>
+                <?php if($this->session->flashdata('picFail')): ?>
+                    <div class="alert alert-warning">
+                    <strong>Warning!</strong> <?= $this->session->flashdata('picFail')?>
+                    </div>
+                <?php endif; ?>
                 <p class="card-category">Create New Shop</p>
             </div>
             <div class="card-body">
@@ -72,6 +77,7 @@
                     <div class="">
                         <label class="bmd-label-floating">Shop Image</label>
                         <input type="file" name="shpic" id="shpic" class="form-control">
+                        <input type="hidden" name="oldshpic" id="oldshpic">
                     </div>
                     </div>
                 </div>
@@ -193,6 +199,7 @@
     $('#category').val('');
     $('#shaddress').val('');
     $('#skphone').val('');
+    $('#skdes').val('');
     $('#skuserid').val('');
     $('#skpass').val('');
     $('#fid').val('');
@@ -224,7 +231,8 @@
       $('#skuserid').val(data.skuserid);
       $('#skpass').val(data.skpass);
       $('#fid').val(data.id);
-      $('#shoppic').attr('src', '<?= base_url()?>'+data.shpic)
+      $('#shoppic').attr('src', '<?= base_url()?>'+data.shpic);
+      $('#oldshpic').val(data.shpic);
       $('#btnname').html("Update");
     });
   }

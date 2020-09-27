@@ -1,4 +1,6 @@
 <?php include('layout/header.php'); ?>
+<script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+<link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
   <div class="container-fluid">
@@ -40,9 +42,14 @@
                     <div class="form-group">
                         <label class="bmd-label-floating">Select</label>
                         <select name="issueto" id="issueto" class="form-control">
+                          <?php if($this->session->userdata('loginrole') != 'franchise'):?>
                             <option value="null" disabled>Choose Shop...</option>
                             <option value="Franchise">Franchise</option>
                             <option value="Shop">Shop</option>
+                          <?php else: ?>
+                            <option value="null" disabled>Choose Shop...</option>
+                            <option value="Shop">Shop</option>
+                          <?php endif; ?>
                         </select>
                     </div>
                     </div>
@@ -52,9 +59,9 @@
                     <div class="form-group namediv"></div>
                     </div>
                     <div class="col-md-6">
-                    <div class="form-group">
+                    <div class="form-group card">
                         <label class="bmd-label-floating">Cards</label>
-                        <select name="cardno" id="cardno" class="form-control">
+                        <select data-placeholder="Choose Cards..." multiple class="chosen-select" name="cardno[]" id="cardno">
                             <?php for($j = 0;$j < count($cards);$j++): ?>
                                 <option value="<?= $cards[$j]['id']?>"><?= $cards[$j]['cardno']?> &nbsp; (<?= $cards[$j]['status']?>)</option>
                             <?php endfor; ?>
@@ -122,6 +129,9 @@
     $('#ic').addClass('active');
     $('#form').hide();
   });
+  $(".chosen-select").chosen({
+    no_results_text: "Oops, nothing found!"
+  });
   //addbtn
   $('#addbtn').on('click', function(){
     $('#tbl').hide();
@@ -131,7 +141,7 @@
     $('#btnname').html("Create");
     $('#cardno').removeAttr('disabled');
     $('#shname').val('');
-    $('#cardno').val('');
+    $('.chosen-select').val('');
     $('#fid').val('');
   });
   //bckbtn
@@ -150,13 +160,15 @@
       $('#form').show();
       issuefun(data.issuefor);
       $('#issueto').val(data.issuefor);
-      $('#cardno').val(data.cardno);
+      $("#cardno option[value='"+data.cardno+"']").attr('selected', 'selected');
+      var cardval = $("#cardno option[value='"+data.cardno+"']").html();
       $('#cardno').attr('disabled', true);
+      $('ul.chosen-choices').html('<li class="search-choice"><span>'+cardval+'</span></li>');
       $('#fid').val(data.id);
       if(data.issuefor == 'Franchise'){
         $('#shname option[value="'+data.frname+'"]').attr('selected', 'selected');
       }else{
-        $('#shname option[value="'+data.frname+'"]').attr('selected', 'selected');
+        $('#shname option[value="'+data.shname+'"]').attr('selected', 'selected');
       }
       $('#btnname').html("Update");
     });

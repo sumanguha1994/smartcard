@@ -13,14 +13,18 @@ class ShopKeeperModel extends CI_Model {
     {
         $folder = 'shop';
         $this->upload->initialize($this->imgConfig($folder));
-        if(! $this->upload->do_upload('shpic')){
-            log_message('error', "Shop Image Not Uploaded");
-            $this->session->set_flashdata('picFail', "Picture Size OR Type Noy Allowed");
-            return false;
+        if(empty($_FILES['shpic']['name'])){
+            $path = $sk['oldshpic'];
         }else{
-            $data = array('data' => $this->upload->data());
-            $path = '/upload/shop/'. $data['data']['file_name'];
-        };
+            if(! $this->upload->do_upload('shpic')){
+                log_message('error', "Shop Image Not Uploaded");
+                $this->session->set_flashdata('picFail', "Picture Size OR Type Noy Allowed");
+                return false;
+            }else{
+                $data = array('data' => $this->upload->data());
+                $path = '/upload/shop/'. $data['data']['file_name'];
+            };
+        }
         $skArray = array(
             'shname' => $sk['shname'],
             'shphone' => $sk['shphone'],
