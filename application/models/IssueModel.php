@@ -23,9 +23,16 @@ class IssueModel extends CI_Model {
                 $data[$i]['name'] = $fr[$i]['name'];
             }
         }else{
-            $sh = $this->db->select('*')->from('shopkeeper')
-                            ->get()
-                            ->result_array();
+            if($this->session->userdata('loginrole') != 'franchise'){
+                $sh = $this->db->select('*')->from('shopkeeper')
+                                    ->get()
+                                    ->result_array();
+            }else{
+                $sh = $this->db->select('*')->from('shopkeeper')
+                                    ->where('creatorid', $this->session->userdata('loginid'))
+                                    ->get()
+                                    ->result_array();
+            }
             for($i = 0;$i < count($sh);$i++)
             {
                 $data[$i]['id'] = $sh[$i]['id'];
