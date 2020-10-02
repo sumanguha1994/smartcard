@@ -25,23 +25,35 @@ class ShopKeeperModel extends CI_Model {
                 $path = '/upload/shop/'. $data['data']['file_name'];
             };
         }
-        $skArray = array(
-            'shname' => $sk['shname'],
-            'shphone' => $sk['shphone'],
-            'shpincode' => $sk['shpincode'],
-            'shlocation' => $sk['shlocation'],
-            'category' => $sk['category'],
-            'shaddress' => $sk['shaddress'],
-            'skphone' => $sk['skdes'],
-            'shpic' => $path,
-            'skuserid' => $sk['shphone'],
-            'skpass' => $sk['skpass'],
-            'creatorid' => $this->session->userdata('loginid'),
-        );
         if(isset($sk['id']) && !empty($sk['id'])){
+            $skArray = array(
+                'shname' => $sk['shname'],
+                'shphone' => $sk['shphone'],
+                'shpincode' => $sk['shpincode'],
+                'shlocation' => $sk['shlocation'],
+                'category' => $sk['category'],
+                'shaddress' => $sk['shaddress'],
+                'skphone' => $sk['skdes'],
+                'shpic' => $path,
+                'skuserid' => $sk['shphone'],
+                'skpass' => $sk['skpass'],
+            );
             $this->db->where('id', $sk['id'])
                         ->update('shopkeeper', $skArray);
         }else{
+            $skArray = array(
+                'shname' => $sk['shname'],
+                'shphone' => $sk['shphone'],
+                'shpincode' => $sk['shpincode'],
+                'shlocation' => $sk['shlocation'],
+                'category' => $sk['category'],
+                'shaddress' => $sk['shaddress'],
+                'skphone' => $sk['skdes'],
+                'shpic' => $path,
+                'skuserid' => $sk['shphone'],
+                'skpass' => $sk['skpass'],
+                'creatorid' => $this->session->userdata('loginid'),
+            );
             $this->db->insert('shopkeeper', $skArray);
         }   
         return true;
