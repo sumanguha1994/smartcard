@@ -11,15 +11,18 @@ class CardModel extends CI_Model {
 
     public function create($card)
     {
-        $cardArray = array(
-            'cardno' => $card['cardno'],
-        );
-        if(isset($card['id']) && !empty($card['id'])){
-            $this->db->where('id', $card['id'])
-                        ->update('card', $cardArray);
-        }else{
-            $this->db->insert('card', $cardArray);
-        }   
+        for($i = 0;$i < count($card['cardno']);$i++)
+        {
+            $cardArray = array(
+                'cardno' => $card['cardno'][$i],
+            );
+            if(isset($card['id']) && !empty($card['id'])){
+                $this->db->where('id', $card['id'])
+                            ->update('card', $cardArray);
+            }else{
+                $this->db->insert('card', $cardArray);
+            } 
+        }
         return true;
     }
 

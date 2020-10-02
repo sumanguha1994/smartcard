@@ -38,13 +38,20 @@
             <div class="card-body">
                 <form method="post" action="<?= base_url('create-card')?>">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-10">
+                      <div class="form-group">
+                          <label class="bmd-label-floating">Card No.</label>
+                          <input type="text" name="cardno[]" id="cardno" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-md-2">
                     <div class="form-group">
-                        <label class="bmd-label-floating">Card No.</label>
-                        <input type="text" name="cardno" id="cardno" class="form-control">
+                        <label class="bmd-label-floating"></label>
+                        <button type="button" class="btn btn-info" onclick="addform()"><i class="fa fa-plus"></i></button>
                     </div>
                     </div>
                 </div>
+                <div class="add"></div>
                 <button type="submit" class="btn btn-success pull-right"><span id="btnname">Create</span>  Card</button>
                 <input type="hidden" name="id" id="fid">
                 <div class="clearfix"></div>
@@ -59,7 +66,7 @@
     <div class="container-fluid">
         <div class="row">
           <?php for($i = 0;$i < count($card);$i++): ?>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <div class="card card-chart">
                 <div class="card-header card-header-success">
                     <p class="card-category">
@@ -112,6 +119,25 @@
       $('#fid').val(data.id);
       $('#btnname').html("Update");
     });
+  }
+  var id = 1;
+  function addform()
+  {
+    let htmldiv;
+    htmldiv = '<div class="row addformdiv'+id+'"><div class="col-md-10"><div class="form-group">';
+    htmldiv += '<label class="bmd-label-floating">Card No.</label>';
+    htmldiv += '<input type="text" name="cardno[]" id="cardno" class="form-control">';
+    htmldiv += '</div></div><div class="col-md-2">';
+    htmldiv += '<div class="form-group">';
+    htmldiv += '<label class="bmd-label-floating"></label>';
+    htmldiv += '<button type="button" class="btn btn-warning" onclick="delform('+id+')"><i class="fa fa-minus"></i></button>';
+    htmldiv += '</div></div></div>';
+    $('.add').append(htmldiv);
+    id++;
+  }
+  function delform(i)
+  {
+    $('.addformdiv'+i).html('');
   }
 </script>
 <?php include('layout/footer.php'); ?>     
